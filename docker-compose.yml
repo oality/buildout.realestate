@@ -1,0 +1,30 @@
+version: '3.5'
+services:
+  zeo:
+    build:
+      context: .
+    container_name: zeo
+    image: realestate
+    volumes:
+      - data:/data
+    command: zeo
+  instance:
+    container_name: instance
+    hostname: instance
+    image: realestate
+    environment:
+      - ZEO_ADDRESS=zeo:8080
+    links:
+      - zeo
+    ports:
+      - 8080:8080
+    labels:
+      - "traefik.frontend.rule=Host:www.suttor.be;AddPrefix:/VirtualHostBase/https/www.suttor.be/plone/VirtualHostRoot"
+
+volumes:
+  data:
+
+networks:
+  default:
+    external:
+      name: proxy
