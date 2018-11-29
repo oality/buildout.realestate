@@ -4,16 +4,20 @@ services:
     build:
       context: .
     container_name: zeo
+    hostname: zeo
     image: realestate
     volumes:
-      - data:/data
-    command: zeo
+      - /home/bsuttor/buildout.realestate/data/blobstorage:/plone/instance/var/blobstorage
+      - /home/bsuttor/buildout.realestate/data/filestorage:/plone/instance/var/filestorage
+    command: zeoserver
   instance:
     container_name: instance
     hostname: instance
     image: realestate
     environment:
       - ZEO_ADDRESS=zeo:8080
+      - ZEO_HOST=zeo
+      - ZEO_PORT=8100
     links:
       - zeo
     ports:
@@ -21,8 +25,6 @@ services:
     labels:
       - "traefik.frontend.rule=Host:www.suttor.be;AddPrefix:/VirtualHostBase/https/www.suttor.be/plone/VirtualHostRoot"
 
-volumes:
-  data:
 
 networks:
   default:

@@ -45,6 +45,7 @@ RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopen
 VOLUME /data
 
 COPY docker-initialize.py docker-entrypoint.sh /
+RUN chmod +x docker-entrypoint.sh 
 
 EXPOSE 8080
 WORKDIR /plone/instance
