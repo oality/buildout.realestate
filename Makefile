@@ -18,5 +18,10 @@ test: buildout
 instance: buildout
 	./bin/instance fg
 
+docker-build:
+	docker-compose down
+	docker-compose build --no-cache
+	docker-compose up -d
+
 cleanall:
 	rm -rf bin develop-eggs downloads include lib parts .installed.cfg .mr.developer.cfg bootstrap.py parts/omelette
