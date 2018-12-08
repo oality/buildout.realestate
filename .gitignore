@@ -34,3 +34,4 @@ src/*
 !.gitkeep
 !.travis.yml
 var/
+buildout.cfg
