@@ -15,7 +15,7 @@ LABEL plone=$PLONE_VERSION \
     description="Plone image, based on Unified Installer" \
     maintainer="Benoit Suttor"
 
-RUN useradd --system -m -d /plone -U -u 500 plone \
+RUN useradd --system -m -d /plone -U -u 1000 plone \
  && mkdir -p /plone/instance/ /data/filestorage /data/blobstorage
 
 COPY base.cfg dev.cfg prod.cfg sources.cfg versions.cfg /plone/instance/
@@ -45,7 +45,7 @@ RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopen
 VOLUME /data
 
 COPY docker-initialize.py docker-entrypoint.sh /
-RUN chmod +x docker-entrypoint.sh 
+RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 8080
 WORKDIR /plone/instance
