@@ -16,10 +16,10 @@ services:
     image: realestate
     environment:
       - ZEO_ADDRESS=zeo:8080
-      - ZEO_HOST=zeo
+      - ZEO_HOST=db
       - ZEO_PORT=8100
     links:
-      - zeo
+      - zeo:db
     ports:
       - 8080:8080
     labels:

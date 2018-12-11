@@ -25,6 +25,7 @@ lib/
 local/
 parts/
 src/*
+data/
 
 # excludes
 !.coveragerc
@@ -35,3 +36,4 @@ src/*
 !.travis.yml
 var/
 buildout.cfg
+share/

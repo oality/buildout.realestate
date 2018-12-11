@@ -6,7 +6,8 @@ ENV PIP=9.0.3 \
     WHEEL=0.31.1 \
     PLONE_MAJOR=5.1 \
     PLONE_VERSION=5.1.4 \
-    PLONE_MD5=ce3b87b1cb8ee30e577ae347d9bdd647
+    PLONE_MD5=ce3b87b1cb8ee30e577ae347d9bdd647 \
+    LANG=en_US.UTF-8 
 
 LABEL plone=$PLONE_VERSION \
     os="debian" \
@@ -23,6 +24,7 @@ COPY base.cfg dev.cfg prod.cfg sources.cfg versions.cfg /plone/instance/
 RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopenjp2-7-dev libpcre3-dev libssl-dev libtiff5-dev libxml2-dev libxslt1-dev wget zlib1g-dev" \
  && runDeps="gosu libjpeg62 libopenjp2-7 libtiff5 libxml2 libxslt1.1 lynx netcat poppler-utils rsync wv" \
  && apt-get update \
+ && apt install -y locales \
  && apt-get install -y --no-install-recommends $buildDeps \
  && wget -O Plone.tgz https://launchpad.net/plone/$PLONE_MAJOR/$PLONE_VERSION/+download/Plone-$PLONE_VERSION-UnifiedInstaller.tgz \
  && echo "$PLONE_MD5 Plone.tgz" | md5sum -c - \
@@ -43,6 +45,10 @@ RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopen
  && rm -rf /plone/buildout-cache/downloads/*
 
 VOLUME /data
+
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
 
 COPY docker-initialize.py docker-entrypoint.sh /
 RUN chmod +x docker-entrypoint.sh
