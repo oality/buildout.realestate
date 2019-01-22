@@ -5,14 +5,15 @@ import os
 import warnings
 warnings.simplefilter('always', DeprecationWarning)
 
+
 class Environment(object):
     """ Configure container via environment variables
     """
     def __init__(self, env=os.environ,
-                 zope_conf="/plone/instance/parts/instance/etc/zope.conf",
-                 custom_conf="/plone/instance/custom.cfg",
-                 zeopack_conf="/plone/instance/bin/zeopack",
-                 zeoserver_conf="/plone/instance/parts/zeoserver/etc/zeo.conf"
+                 zope_conf="/plone/parts/instance/etc/zope.conf",
+                 custom_conf="/plone/custom.cfg",
+                 zeopack_conf="/plone/bin/zeopack",
+                 zeoserver_conf="/plone/parts/zeoserver/etc/zeo.conf"
                  ):
         self.env = env
         self.zope_conf = zope_conf
@@ -155,7 +156,7 @@ ZEO_TEMPLATE = """
       server {zeo_address}
       storage {zeo_storage}
       name zeostorage
-      var /plone/instance/parts/instance/var
+      var /plone/parts/instance/var
       cache-size {zeo_client_cache_size}
     </zeoclient>
 """.strip()
