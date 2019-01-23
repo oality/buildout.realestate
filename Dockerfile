@@ -25,6 +25,7 @@ COPY base.cfg dev.cfg prod.cfg sources.cfg versions.cfg /plone/
 RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopenjp2-7-dev libpcre3-dev libssl-dev libtiff5-dev libxml2-dev libxslt1-dev wget zlib1g-dev" \
  && runDeps="gosu libjpeg62 libopenjp2-7 libtiff5 libxml2 libxslt1.1 lynx netcat poppler-utils rsync wv" \
  && apt-get update \
+ && apt-get upgrade -y \
  && apt install -y locales \
  && apt-get install -y --no-install-recommends $buildDeps \
  && wget -O buildout-cache.tar.bz2 https://launchpad.net/plone/$PLONE_MAJOR/$PLONE_VERSION/+download/buildout-cache.tar.bz2  \
