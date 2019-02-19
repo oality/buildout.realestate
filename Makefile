@@ -9,7 +9,11 @@ bin/buildout: bin/pip
 	./bin/pip install -r requirements.txt
 	touch $@
 
-buildout: bin/buildout
+buildout.cfg:
+	ln -s dev.cfg buildout.cfg
+	touch $@
+
+buildout: bin/buildout buildout.cfg
 	./bin/buildout -t 7
 
 test: buildout

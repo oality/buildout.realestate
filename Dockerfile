@@ -40,7 +40,6 @@ RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopen
  && ln -s /data/blobstorage /plone/var/blobstorage \
  && chown -R plone:plone /plone /data \
  && ls -lah \
- && apt-get purge -y --auto-remove $buildDeps \
  && apt-get install -y --no-install-recommends $runDeps \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /plone/downloads/*
