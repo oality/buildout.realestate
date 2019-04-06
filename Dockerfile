@@ -38,7 +38,8 @@ RUN buildDeps="dpkg-dev git gcc libbz2-dev libc6-dev libjpeg62-turbo-dev libopen
  && buildout -c prod.cfg \
  && ln -s /data/filestorage/ /plone/var/filestorage \
  && ln -s /data/blobstorage /plone/var/blobstorage \
- && chown -R plone:plone /plone /data \
+ && mkdir /backups \
+ && chown -R plone:plone /plone /data /backups \
  && ls -lah \
  && apt-get install -y --no-install-recommends $runDeps \
  && rm -rf /var/lib/apt/lists/* \
